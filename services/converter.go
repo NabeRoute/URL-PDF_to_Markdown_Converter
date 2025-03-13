@@ -34,7 +34,7 @@ func ConvertHTMLToMarkdown(url string) (string, error) {
 		return "", fmt.Errorf("failed to parse HTML: %w", err)
 	}
 
-	// html-to-markdownコンバーターを初期化（最もシンプルな形式）
+	// html-to-markdownコンバーターを初期化
 	converter := md.NewConverter("", true, nil)
 
 	// HTMLをマークダウンに変換

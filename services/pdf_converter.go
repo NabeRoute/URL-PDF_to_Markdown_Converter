@@ -34,12 +34,10 @@ func ConvertPDFToMarkdown(fileData []byte) (string, error) {
 	textFilePath := filepath.Join(os.TempDir(), "output.txt")
 	defer os.Remove(textFilePath) // 関数終了時に一時出力ファイルを削除
 
-	// pdftotext コマンドを使用してPDFからテキストを抽出（より簡単な方法）
-	// 注意: このアプローチはホストマシンにpopplerツール（pdftotext）がインストールされている必要があります
+	
 	cmd := exec.Command("pdftotext", tempFilePath, textFilePath)
 	if err := cmd.Run(); err != nil {
-		// pdftotext が利用できない場合のフォールバック処理
-		// より簡単な方法で内容を抽出
+		
 		return extractTextFromPDFSimple(tempFilePath)
 	}
 
@@ -62,7 +60,7 @@ func ConvertPDFToMarkdown(fileData []byte) (string, error) {
 	return markdown, nil
 }
 
-// generateHTMLFromPDFText はPDFから抽出したテキストをHTMLに変換します
+// generateHTMLFromPDFText はPDFから抽出したテキストをHTMLに変換
 func generateHTMLFromPDFText(text string) string {
 	// テキストを行に分割
 	lines := strings.Split(text, "\n")
@@ -112,14 +110,11 @@ func generateHTMLFromPDFText(text string) string {
 
 // フォールバックメソッド - より簡単なPDFテキスト抽出方法
 func extractTextFromPDFSimple(pdfPath string) (string, error) {
-	// ここではより簡単な方法でPDFからテキストを抽出することを想定
-	// 実際のプロジェクトではこの部分に適切なPDFテキスト抽出ロジックを実装
 
-	// PDFテキスト抽出のためのフォールバックメッセージ
 	return "# PDF変換メッセージ\n\nこのPDFの変換には外部ツール（pdftotext）が必要です。\nDockerイメージに poppler-utils をインストールするか、テキスト抽出用の純粋なGoライブラリを使用してください。", nil
 }
 
-// SaveUploadedFile はアップロードされたファイルを一時ディレクトリに保存します
+// SaveUploadedFile はアップロードされたファイルを一時ディレクトリに保存
 func SaveUploadedFile(file io.Reader) ([]byte, error) {
 	// ファイルデータを読み込む
 	fileData, err := io.ReadAll(file)
