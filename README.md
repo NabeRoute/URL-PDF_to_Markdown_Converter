@@ -2,6 +2,10 @@
 
 URL/PDF to Markdown Converterは、ウェブページのURLやPDFファイルからマークダウン形式のテキストを生成するシンプルなWebアプリケーションです。
 
+## デモ
+
+![デモ](demo/demo_.gif)
+
 ## 機能
 
 - ウェブページURLの入力からMarkdownへの変換
@@ -20,11 +24,11 @@ URL/PDF to Markdown Converterは、ウェブページのURLやPDFファイルか
 
 ## 使用方法
 
-### Dockerを使用した実行（推奨）
+### Dockerを使用した実行
 
 1. このリポジトリをクローン
    ```bash
-   git clone https://github.com/[あなたのユーザー名]/url-to-markdown-converter.git
+   git clone https://github.com/NabeRoute/URL-PDF_to_Markdown_Converter.git
    cd url-to-markdown-converter
    ```
 
@@ -41,60 +45,26 @@ URL/PDF to Markdown Converterは、ウェブページのURLやPDFファイルか
 ### ローカル環境での実行
 
 1. Go 1.16以上をインストール
-2. poppler-utilsをインストール（PDF変換機能のため）
-   - Ubuntu/Debian: `sudo apt-get install poppler-utils`
-   - macOS: `brew install poppler`
-   - Windows: [poppler for Windows](https://blog.alivate.com.au/poppler-windows/)をダウンロード
 
-3. 依存関係のインストール
+2. 依存関係のインストール
    ```bash
    go mod download
    ```
 
-4. アプリケーションを実行
+3. アプリケーションを実行
    ```bash
    go run main.go
    ```
 
-5. ブラウザで開く
+4. ブラウザで開く
    ```
    http://localhost:8080
 
    ```
-## デモ
 
-![デモ](demo/demo_.gif)
 
-## ディレクトリ構成
 
-```
-.
-├── handlers/         # HTTPリクエストハンドラー
-├── services/         # ビジネスロジック
-├── static/           # 静的ファイル
-│   ├── css/          # CSSファイル
-│   └── js/           # JavaScriptファイル
-├── templates/        # HTMLテンプレート
-├── Dockerfile        # Dockerイメージ定義
-├── docker-compose.yml # Docker Compose設定
-├── go.mod            # Goモジュール定義
-├── go.sum            # 依存関係のチェックサム
-├── main.go           # アプリケーションのエントリーポイント
-└── README.md         # このファイル
-```
 
-## 開発環境のセットアップ
-
-1. 前提条件
-   - Go 1.16+
-   - Git
-   - Docker & Docker Compose（オプション）
-
-2. 開発用サーバーの起動
-   ```bash
-   # ホットリロード機能付きで実行（air等のツールを使用）
-   air
-   ```
 
 
 
