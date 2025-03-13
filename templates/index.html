@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .title }}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- スクリプトのキャッシュを防ぐためにタイムスタンプパラメータを追加 -->
+    <script src="/static/js/app.js?v={{ .timestamp }}" defer></script>
+    <style>
+        /* モード選択ボタン用の追加スタイル */
+        .mode-selection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 2rem 0;
+        }
+        
+        .mode-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            min-width: 200px;
+        }
+        
+        .mode-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .back-button {
+            background-color: #95a5a6;
+            margin-bottom: 1rem;
+        }
+        
+        .back-button:hover {
+            background-color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <!-- スクリプトのロードをデバッグするためのインラインスクリプト -->
+    <script>
+        console.log('Page initialization started');
+        
+        // スクリプトファイルのロードをテスト
+        function testScriptLoading() {
+            fetch('/static/js/app.js')
+                .then(response => {
+                    if (response.ok) {
+                        console.log('✅ app.js ファイルにアクセス可能です');
+                    } else {
+                        console.error('❌ app.js ファイルにアクセスできません (ステータス: ' + response.status + ')');
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ app.js ファイルのロード中にエラーが発生しました:', error);
+                });
+        }
+        
+        // ページロード後にテストを実行
+        window.addEventListener('load', function() {
+            console.log('ページが完全にロードされました');
+            testScriptLoading();
+            
+            // スクリプトのロード状態を確認
+            setTimeout(function() {
+                if (typeof window.scriptLoaded === 'undefined') {
+                    console.error('❌ app.js が正しくロードされていません');
+                } else {
+                    console.log('✅ app.js が正常にロードされました');
+                }
+            }, 1000);
+        });
+    </script>
+    
+    <div class="container">
+        <h1>URL/PDF to Markdown Converter</h1>
+        
+        <!-- 初期選択ボタン -->
+        <div id="mode-selection" class="mode-selection">
+            <button id="url-mode-btn" class="mode-button">URLから変換</button>
+            <button id="pdf-mode-btn" class="mode-button">PDFから変換</button>
+        </div>
+        
+        <!-- URL変換コンテンツ -->
+        <div id="url-content" class="hidden">
+            <button id="back-to-mode-btn-url" class="back-button">← 戻る</button>
+            <div class="converter-form">
+                <div class="form-group">
+                    <label for="url-input">ウェブページURL:</label>
+                    <input type="url" id="url-input" placeholder="https://example.com" required>
+                </div>
+                <button id="convert-btn">変換</button>
+            </div>
+        </div>
+        
+        <!-- PDF変換コンテンツ -->
+        <div id="pdf-content" class="hidden">
+            <button id="back-to-mode-btn-pdf" class="back-button">← 戻る</button>
+            <div class="converter-form">
+                <div class="form-group">
+                    <label for="pdf-input">PDFファイル:</label>
+                    <input type="file" id="pdf-input" accept=".pdf" required>
+                </div>
+                <button id="convert-pdf-btn">変換</button>
+            </div>
+        </div>
+
+        <div class="result-container hidden">
+            <div class="result-controls">
+                <button id="copy-btn">クリップボードにコピー</button>
+                <button id="download-btn">ダウンロード</button>
+            </div>
+            <div class="result-content">
+                <h2>Markdown 結果:</h2>
+                <pre id="markdown-result"></pre>
+            </div>
+        </div>
+
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>変換中...</p>
+        </div>
+
+        <div id="error-message" class="hidden">
+            <p></p>
+        </div>
+    </div>
+</body>
+</html>
