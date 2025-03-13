@@ -63,7 +63,7 @@ URL/PDF to Markdown Converterは、ウェブページのURLやPDFファイルか
    ```
 ## デモ
 
-![デモ](demo/demo.mov)
+![デモ](demo/demo_.gif)
 
 ## ディレクトリ構成
 
